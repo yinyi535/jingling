@@ -1,29 +1,87 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    redirect: '/login'
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
+    path: '/home',
+    name: 'home',
+    component: Home,
+    redirect: '/home/welcome',
+    children: [
+      {
+        path: 'welcome',
+        name: 'welcome',
+        component: () => import('@/components/Welcome.vue')
+      },
+      {
+        path: 'users',
+        name: 'users',
+        component: () => import('@/components/Users.vue')
+      },
+      {
+        path: 'roles',
+        name: 'roles',
+        component: () => import('@/components/Roles.vue')
+      },
+      {
+        path: 'rights',
+        name: 'rights',
+        component: () => import('@/components/Rights.vue')
+      },
+      {
+        path: 'goods',
+        name: 'goods',
+        component: () => import('@/components/Goods.vue')
+      },
+      {
+        path: 'params',
+        name: 'params',
+        component: () => import('@/components/Params.vue')
+      },
+      {
+        path: 'categories',
+        name: 'categories',
+        component: () => import('@/components/Categories.vue')
+      },
+      {
+        path: 'orders',
+        name: 'orders',
+        component: () => import('@/components/Orders.vue')
+      },
+      {
+        path: 'reports',
+        name: 'reports',
+        component: () => import('@/components/Reports.vue')
+      },
+    ]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login.vue')
   }
 ]
 
 const router = new VueRouter({
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  if (to.path != '/login') {
+    let token = sessionStorage.getItem('token')
+    if (token) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next()
+  }
+})
 export default router
