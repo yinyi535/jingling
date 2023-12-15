@@ -186,6 +186,7 @@ export default {
     }
     .el-main {
       background: url("@/assets/bj.be0436d4.jpg");
+      height: calc(100vh - 60px);
     }
   }
 }
