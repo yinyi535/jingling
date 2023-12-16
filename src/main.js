@@ -6,11 +6,12 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import TreeTable from 'vue-table-with-tree-grid'
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 axios.defaults.baseURL = 'http://www.chenfuguo.cn:8899/api/private/v1';
-
+Vue.component('tree-table', TreeTable)
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么

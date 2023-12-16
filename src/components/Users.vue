@@ -316,7 +316,6 @@ export default {
     },
     //点击确定，添加新用户
     addUser() {
-      console.log(this.addForm);
       this.$refs.addFormRef.validate(async (valid) => {
         if (valid) {
           let { data: res } = await this.axios.post("users", this.addForm);
