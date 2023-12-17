@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import echarts from "@/js/echarts.js";
+import * as echarts from "@/js/echarts.js";
 import _ from "lodash";
 export default {
   props: {},
